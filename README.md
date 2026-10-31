@@ -12,6 +12,8 @@ Built with **HTML** and **CSS**. The website includes responsive styling for sma
 
 ## Featured Projects
 
+- [Hospital Visit Log — Live Demo](projects/Hospital-Visit-Log/README.md) — Flask/SQLite visit management application, public demo with private source code
+
 - [Oil & Gas Data Engineering](https://github.com/sara878-ah/Oil-Gas-Data-Engineering-Project) — Microsoft Fabric, data processing, and dimensional modeling
 - [HR Analytics Dashboard](https://github.com/sara878-ah/HR-Analytics-) — Power BI HR analytics
 - [Sales Performance Dashboard](https://github.com/sara878-ah/Sales-Performance-Dashboard) — sales and product insights
