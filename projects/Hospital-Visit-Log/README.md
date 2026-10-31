@@ -9,7 +9,7 @@ A Flask and SQLite web application for tracking hospital service visits, documen
 | Field | Demo access |
 |---|---|
 | Username | `demo` |
-| Password | *Demo password will be added by the project owner* |
+| Password | `123456123456` |
 
 > **Demo environment only.** All preloaded records are fictional. Please don't enter personal, patient, or confidential business information. Visitors share the same demo account, so trial entries may be changed or deleted by other visitors.
 
