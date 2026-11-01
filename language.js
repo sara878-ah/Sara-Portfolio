@@ -63,6 +63,7 @@ const arabicTranslations = {
   "CONTACT": "التواصل",
   "Let’s Connect": "لنتواصل",
   "Interested in my work, projects or professional opportunities? You can reach me through the links below.": "هل ترغب في معرفة المزيد عن أعمالي ومشاريعي أو التواصل بشأن فرصة مهنية؟ يسعدني تواصلك عبر الروابط التالية.",
+  "Download CV": "تحميل السيرة الذاتية",
   "Email": "البريد الإلكتروني"
 };
 
@@ -122,3 +123,19 @@ try {
     // Use English as the default if storage is unavailable.
 }
 setPortfolioLanguage(initialLanguage);
+
+
+/* The public PDF must be present before the download link becomes visible.
+   Prevents a broken link while a user uploads the PDF via GitHub. */
+const cvDownloadButton = document.getElementById("cv-download");
+if (cvDownloadButton) {
+    fetch("Sara_CV.pdf", { method: "HEAD", cache: "no-store" })
+        .then((response) => {
+            if (response.ok && (response.headers.get("content-type") || "").toLowerCase().includes("pdf")) {
+                cvDownloadButton.hidden = false;
+            }
+        })
+        .catch(() => {
+            // Stay hidden rather than show a link to a missing document.
+        });
+}
