@@ -171,6 +171,31 @@ body {
     padding-bottom: 3px;
 }
 
+/* Project details and live-demo links */
+.project-category {
+    margin: 0 0 12px !important;
+    color: #555c75 !important;
+    font-size: 12px !important;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    line-height: 1.4 !important;
+}
+.project-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 22px;
+    align-items: center;
+}
+.project-link:hover,
+.certificate-link:hover {
+    color: #4669e8;
+    border-bottom-color: #4669e8;
+}
+@media (max-width: 600px) {
+    .project-card { padding: 22px; }
+    .project-actions { gap: 12px 18px; }
+}
+
 /* Certifications Section */
 .certifications {
     padding: 90px 10%;
