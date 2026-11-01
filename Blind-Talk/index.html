@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fff8f0">
+  <meta name="description" content="Blind Talk — لعبة مواضيع عشوائية وتقييمات خاصة تظهر بنهاية الجلسة">
+  <title>Blind Talk — لعبة حوار</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="topics.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+<div class="app-shell">
+  <header class="site-header">
+    <a href="#app" class="brand" aria-label="Blind Talk، بداية الصفحة"><span class="brand-symbol" aria-hidden="true">BT.</span><span>BLIND TALK</span></a>
+    <span class="header-caption">PICK A TOPIC. START TALKING.</span>
+  </header>
+  <main id="app">
+    <!-- 1: إعداد اللعبة -->
+    <section id="setup-screen" class="screen" aria-labelledby="setup-title">
+      <div class="intro">
+        <p class="eyebrow"><span class="sparkle" aria-hidden="true">✳</span> لعبة سوالف وتعارف</p>
+        <h1 id="setup-title">كل موضوع<br><em>له سالفته.</em></h1>
+        <p class="muted intro-copy">اختاروا موضوعًا عشوائيًا وتكلموا براحتكم. قيّموا كل موضوع من 10، وشوفوا جميع التقييمات عند نهاية اللعبة.</p>
+      </div>
+      <div class="numbers" aria-label="معلومات اللعبة">
+        <div><strong id="total-topics">64</strong><small>موضوعًا</small></div>
+        <div><strong>2</strong><small>لاعبان</small></div>
+        <div><strong>🔒</strong><small>نتائج بالنهاية</small></div>
+      </div>
+      <form id="setup-form" class="panel setup-form">
+        <fieldset>
+          <legend>المشاركون</legend>
+          <div class="name-fields">
+            <label for="name1">اللاعب الأول<input id="name1" name="player1" maxlength="24" autocomplete="off" placeholder="الاسم (اختياري)"></label>
+            <label for="name2">اللاعب الثاني<input id="name2" name="player2" maxlength="24" autocomplete="off" placeholder="الاسم (اختياري)"></label>
+          </div>
+        </fieldset>
+        <fieldset class="mode-fieldset">
+          <legend>نوع الجلسة</legend>
+          <div class="mode-options" aria-label="اختر نوع الجلسة">
+            <button type="button" class="mode-button is-selected" data-mode="all" aria-pressed="true">كل المواضيع</button>
+            <button type="button" class="mode-button" data-mode="love" aria-pressed="false">العلاقات</button>
+            <button type="button" class="mode-button" data-mode="friends" aria-pressed="false">الأصدقاء</button>
+            <button type="button" class="mode-button" data-mode="deep" aria-pressed="false">مواضيع عميقة</button>
+          </div>
+        </fieldset>
+        <button type="submit" class="button button-primary">ابدأوا اللعب <span aria-hidden="true">↗</span></button>
+      </form>
+      <p class="note">اللعبة لجهاز واحد، وتُحفظ جولاتها محليًا فيه.</p>
+    </section>
+
+    <!-- 2: بطاقة الموضوع، بدون تقييم ظاهر -->
+    <section id="topic-screen" class="screen" aria-labelledby="topic-title" hidden>
+      <div class="screen-meta"><span id="topic-round-number">الجولة 01</span><span id="topic-progress"></span></div>
+      <div class="topic-content">
+        <article id="topic-card" class="topic-card">
+        <span class="topic-sticker" id="topic-emoji" aria-hidden="true">✳</span>
+        <p class="card-overline">BLIND TALK · ROUND</p>
+        <h1 id="topic-title">العلاقات</h1>
+        <p class="card-subtitle">سولفوا عنه بطريقتكم.</p>
+        <span class="card-index" id="topic-index" aria-hidden="true">01</span>
+      </article>
+        <div class="topic-sidebar">
+          <p class="quiet-center">إذا وقفت السالفة، استخدموا سؤالًا مساعدًا.</p>
+      <aside id="help-panel" class="help-panel" aria-live="polite" hidden>
+        <p class="eyebrow" id="help-count">سؤال مساعد 1 من 3</p>
+        <p class="help-question" id="help-text"></p>
+      </aside>
+          <div class="action-stack">
+            <button id="help-button" type="button" class="button button-secondary">سؤال مساعد</button>
+            <button id="rate-topic-button" type="button" class="button button-primary">خلصنا السالفة · تقييم الموضوع ←</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3: كل شخص يقيّم الموضوع الحالي بمفرده -->
+    <section id="rating-screen" class="screen" aria-labelledby="rating-title" hidden>
+      <div class="screen-meta"><span id="rating-round">الجولة 01</span><span id="rating-step">التقييم الأول من اثنين</span></div>
+      <div class="panel rating-panel">
+        <p class="eyebrow">تقييم الموضوع: <span id="rating-topic-name"></span></p>
+        <h1 id="rating-title">اللاعب الأول</h1>
+        <p class="muted">إلى أي درجة كان فيه تفاهم بينكم في هذا الموضوع؟</p>
+        <div class="score-reading"><output id="score-number" for="score-input">5</output><span>/ 10</span></div>
+        <label for="score-input" class="sr-only">تقييم التفاهم من صفر إلى عشرة</label>
+        <input id="score-input" class="score-range" type="range" min="0" max="10" step="1" value="5">
+        <div class="score-ends"><span>تفاهم أقل</span><span>تفاهم أكبر</span></div>
+      </div>
+      <p class="note">التقييم خاص في هالمرحلة؛ ما راح تنعرض درجاتكم إلا في نهاية اللعبة.</p>
+      <button id="save-score-button" type="button" class="button button-primary">حفظ التقييم</button>
+    </section>
+
+    <!-- 4: شاشة تمرير الجهاز، لا تعرض التقييم الأول -->
+    <section id="handoff-screen" class="screen center-stage" aria-labelledby="handoff-title" hidden>
+      <div class="stage-icon" aria-hidden="true">🔒</div>
+      <p class="eyebrow">التقييم محفوظ</p>
+      <h1 id="handoff-title">دور <span id="handoff-player"></span></h1>
+      <p class="muted center-copy">مرّروا الجهاز للشخص الثاني. تقييم اللاعب الأول ما راح يظهر هنا.</p>
+      <button id="handoff-button" type="button" class="button button-primary">ابدأ تقييمي ←</button>
+    </section>
+
+    <!-- 5: بين الجولات، نحفظ الدرجتين بدون كشفهما -->
+    <section id="between-screen" class="screen center-stage" aria-labelledby="between-title" hidden>
+      <div class="stage-icon" aria-hidden="true">✓</div>
+      <p class="eyebrow">تم حفظ التقييمين</p>
+      <h1 id="between-title">خلصنا هذا الموضوع</h1>
+      <p id="between-count" class="muted center-copy">موضوع واحد تم تقييمه</p>
+      <p class="note">نتائج المواضيع محفوظة، وما راح تظهر إلا لما تنهُون اللعبة.</p>
+      <div class="action-stack stage-actions">
+        <button id="next-button" type="button" class="button button-primary">الموضوع التالي ←</button>
+        <button id="finish-button" type="button" class="button button-secondary">إنهاء اللعبة وعرض النتائج</button>
+      </div>
+    </section>
+
+    <!-- 6: القائمة النهائية، لا تظهر إلا عند إنهاء الجلسة -->
+    <section id="summary-screen" class="screen" aria-labelledby="summary-title" hidden>
+      <div class="result-highlight">
+        <p class="eyebrow">SESSION COMPLETE</p>
+        <h1 id="summary-title">نتائج الجلسة</h1>
+        <p id="summary-players" class="muted"></p>
+        <p class="muted">كل موضوع بتقييم الشخصين، بدون متوسط.</p>
+      </div>
+      <section class="panel" aria-labelledby="round-list-title">
+        <h2 id="round-list-title" class="section-heading">قائمة المواضيع والتقييمات</h2>
+        <ol id="rounds-list" class="rounds-list"></ol>
+      </section>
+      <p class="note">هذه تقييمات شخصية للتفاهم في الحوار، وليست اختبار توافق علميًا.</p>
+      <div class="action-stack">
+        <button id="share-button" type="button" class="button button-secondary">نسخ أو مشاركة القائمة</button>
+        <button id="restart-button" type="button" class="button button-primary">جلسة جديدة ←</button>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">BLIND TALK <span aria-hidden="true">·</span> MADE FOR CONVERSATIONS</footer>
+</div>
+</body>
+</html>
