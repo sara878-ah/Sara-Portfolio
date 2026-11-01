@@ -8,12 +8,25 @@
     <title>Sara | Portfolio</title>
 
     <link rel="stylesheet" href="style.css">
+    <script src="language.js" defer></script>
 </head>
 
 <body>
 
+    <!-- Language selector -->
+    <header class="portfolio-header">
+        <a class="portfolio-wordmark" href="#top" aria-label="Sara portfolio home">Sara.</a>
+        <div class="language-controls">
+            <span class="language-label">Language / اللغة</span>
+            <div class="language-switch" role="group" aria-label="Select website language / اختر لغة الموقع">
+                <button class="language-option is-active" type="button" data-language="en" lang="en" aria-pressed="true">English</button>
+                <button class="language-option" type="button" data-language="ar" lang="ar" aria-pressed="false">العربية</button>
+            </div>
+        </div>
+    </header>
+
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="top">
 
         <div class="hero-text">
 
