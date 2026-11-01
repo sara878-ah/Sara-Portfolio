@@ -135,6 +135,7 @@ body {
 .hero-buttons {
     display: flex;
     gap: 14px;
+    flex-wrap: wrap;
 }
 
 .btn {
@@ -152,6 +153,20 @@ body {
 .secondary {
     border: 1px solid #111827;
     color: #111827;
+}
+
+.cv-download-btn {
+    color: #fff;
+    background: #34415e;
+    border: 1px solid #34415e;
+    transition: background-color .2s ease, transform .2s ease;
+}
+.cv-download-btn:hover {
+    background: #222b42;
+    transform: translateY(-1px);
+}
+.cv-download-btn[hidden] {
+    display: none !important;
 }
 
 .hero-image {
