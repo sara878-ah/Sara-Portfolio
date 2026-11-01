@@ -12,6 +12,8 @@ Built with **HTML** and **CSS**. The website includes responsive styling for sma
 
 ## Featured Projects
 
+- [Blind Talk — Browser Game](Blind-Talk/README.md) — responsive Arabic conversation game with private ratings and end-of-session results ([play on GitHub Pages](https://sara878-ah.github.io/Sara-Portfolio/Blind-Talk/))
+
 - [Hospital Visit Log — Live Demo](projects/Hospital-Visit-Log/README.md) — Flask/SQLite visit management application, public demo with private source code
 
 - [Oil & Gas Data Engineering](https://github.com/sara878-ah/Oil-Gas-Data-Engineering-Project) — Microsoft Fabric, data processing, and dimensional modeling
